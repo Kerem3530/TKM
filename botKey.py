@@ -1,1 +1,1 @@
-TOKEN = "camelCase > PascalStyle"  # Token STRING Olarak Yazılacak 
+Buna Gerek Yok
