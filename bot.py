@@ -1,34 +1,34 @@
 import discord
-import botKey
+from discord.ext import commands
 import time
-import math
+import random
 
-# ayricaliklar (intents) değişkeni botun ayrıcalıklarını depolayacak
+özlüSözlerList = ["Özlü Sözler Özlü Sözlerdir", "Bir Gün Herkes Belediye Çukuru Olacak"
+                  , "Herkes Kötü Bir İnsan Olabir ama Önemli Olan Cuguli Olmaktır",
+                  "Dolar Hep Yükselecektir ama Asıl Önemli Olan ₺'nin İçinden Geçmektir",
+                  "En İyi Program code-insiders'tır", "Error: Beyin doesn't exist (404)"]
+
 intents = discord.Intents.default()
-# Mesajları okuma ayrıcalığını etkinleştirelim
 intents.message_content = True
-# client (istemci) değişkeniyle bir bot oluşturalım ve ayrıcalıkları ona aktaralım
-client = discord.Client(intents=intents)
 
-@client.event
+bot = commands.Bot(command_prefix='--', intents=intents)
+
+@bot.event
 async def on_ready():
-    print(f'{client.user} olarak giriş yaptık.')
+    print(f'{bot.user} olarak giriş yaptık')
 
-@client.event
-async def on_message(message):
-    if message.author == client.user:
-        return
-    
-    if message.content.startswith('?sa'):
-        await message.channel.send(f"As {message.author}!")
+@bot.command()
+async def bilgi(ctx):
+    await ctx.send(f'{bot.user} SmurfCatKerem [keremu960] tarafından bir discord botu')
 
-    if message.content.startswith("?clock"):
-        await message.channel.send(f"{time.localtime()}")
+@bot.command()
+async def saatKaç(ctx):
+    zaman = time.localtime()
+    await ctx.send(f"{zaman}")
 
-    if message.content.startswith('?bb'):
-        await message.channel.send(f"Görüşürüz {message.author}!")
+@bot.command()
+async def özlüSözler(ctx):
+    özlüSöz = random.choice(özlüSözlerList)
+    await ctx.send(f"Sana Bir Özlü Söz!: {özlüSöz}")
 
-    if message.content.startswith('?piSayısı'):
-        await message.channel.send(f"{math.pi}")
-
-client.run(botKey.TOKEN)
+bot.run("TOKENİNİ BURAYA YAZ KOMUTLAR ŞU ŞEKİL ÇALIŞIR: --bilgi")
