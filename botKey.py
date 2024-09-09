@@ -1,1 +1,0 @@
-Buna Gerek Yok
